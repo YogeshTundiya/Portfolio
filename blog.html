@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yogesh Tundiya | Devlog Journal & Technical Writeups</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Read the daily devlog journal, code optimizations, and in-depth engineering writeups by Yogesh Tundiya, Creative Developer based in India.">
+  <meta name="keywords" content="Yogesh Tundiya Blog, Devlog, Daily Journal, Technical Writing, GSAP CSS, ML Pipelines Python, Solidity Security, GMIU Gujarat">
+  <meta name="author" content="Yogesh Tundiya">
+  <meta name="robots" content="index, follow">
+
+  <!-- GEO Meta Tags (Gujarat, India) -->
+  <meta name="geo.region" content="IN-GJ">
+  <meta name="geo.placename" content="Bhavnagar, Gujarat, India">
+  <meta name="geo.position" content="21.7645;72.1519">
+  <meta name="ICBM" content="21.7645, 72.1519">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yogesh.studio/blog.html">
+  <meta property="og:title" content="Yogesh Tundiya | Devlog Journal & Technical Writeups">
+  <meta property="og:description" content="Daily coding updates, system optimization fixes, and deep-dive technical articles on frontend design, machine learning, and blockchain.">
+  <meta property="og:image" content="https://yogesh.studio/assets/WhatsAppImage2026-05-26at6.05.23PM.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://yogesh.studio/blog.html">
+  <meta name="twitter:title" content="Yogesh Tundiya | Devlog Journal & Technical Writeups">
+  <meta name="twitter:description" content="Daily coding updates, system optimization fixes, and deep-dive technical articles on frontend design, machine learning, and blockchain.">
+  <meta name="twitter:image" content="https://yogesh.studio/assets/WhatsAppImage2026-05-26at6.05.23PM.png">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://yogesh.studio/blog.html">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'&gt;&lt;rect width='100' height='100' rx='22' fill='%232b50f7'/&gt;&lt;text x='50%' y='68%' font-size='60' font-family='Syne, sans-serif' font-weight='800' fill='white' text-anchor='middle'&gt;Y&lt;/text&gt;&lt;/svg&gt;">
+
+  <!-- Preconnect to Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="blog-page-body">
+
+  <!-- Ambient Canvas Background -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="custom-cursor">
+    <div class="cursor-dot"></div>
+    <div class="cursor-circle"></div>
+    <span class="cursor-text" id="cursor-text"></span>
+  </div>
+
+  <!-- Screen Preloader -->
+  <div class="preloader" id="preloader">
+    <div class="preloader-bg">
+      <div class="preloader-panel"></div>
+    </div>
+    <div class="preloader-content">
+      <div class="preloader-word-wrapper">
+        <span class="preloader-word" id="preloader-word">DEVLOG</span>
+      </div>
+      <div class="preloader-counter-wrapper">
+        <h1 class="preloader-counter" id="preloader-counter">000</h1>
+      </div>
+    </div>
+  </div>
+
+  <!-- Global Header -->
+  <header class="header" id="main-header">
+    <div class="header-logo" id="header-logo">
+      <a href="index.html" class="logo-link">
+        <span class="logo-bold">YOGESH TUNDIYA</span>
+        <span class="logo-light">PORTFOLIO</span>
+      </a>
+    </div>
+
+    <div class="header-center" id="header-status">
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        <span class="status-text">DAILY UPDATES FEED</span>
+      </div>
+    </div>
+
+    <div class="header-right" id="header-nav-elements">
+      <div class="local-time" id="local-time-widget">
+        <span class="time-label">LOCAL TIME:</span>
+        <span class="time-value" id="current-time">12:00:00 PM</span>
+      </div>
+
+      <button class="nav-toggle" id="menu-btn" aria-label="Toggle Menu">
+        <span class="nav-toggle-text">MENU</span>
+        <div class="nav-toggle-burger">
+          <span class="burger-line line-1"></span>
+          <span class="burger-line line-2"></span>
+        </div>
+      </button>
+    </div>
+  </header>
+
+  <!-- Navigation Menu Overlay -->
+  <div class="nav-overlay" id="nav-overlay">
+    <div class="nav-overlay-bg"></div>
+    <div class="nav-container">
+      <div class="nav-links">
+        <div class="nav-item"><a href="index.html#hero" class="nav-link" data-index="01">Home</a></div>
+        <div class="nav-item"><a href="index.html#about" class="nav-link" data-index="02">About</a></div>
+        <div class="nav-item"><a href="index.html#work" class="nav-link" data-index="03">Works</a></div>
+        <div class="nav-item"><a href="index.html#resume" class="nav-link" data-index="04">Resume</a></div>
+        <div class="nav-item"><a href="index.html#services" class="nav-link" data-index="05">Capabilities</a></div>
+        <div class="nav-item"><a href="index.html#contact" class="nav-link" data-index="06">Contact</a></div>
+        <div class="nav-item"><a href="blog.html" class="nav-link" data-index="07">Blog</a></div>
+      </div>
+      <div class="nav-info">
+        <div class="nav-info-col">
+          <h4>SOCIALS</h4>
+          <a href="https://www.linkedin.com/in/yogesh-tundiya-776195270/" target="_blank" rel="noopener noreferrer" class="magnetic-item">LinkedIn</a>
+          <a href="https://github.com/YogeshTundiya" target="_blank" rel="noopener noreferrer" class="magnetic-item">GitHub</a>
+          <a href="#" class="magnetic-item">Awwwards</a>
+        </div>
+        <div class="nav-info-col">
+          <h4>SAY HELLO</h4>
+          <a href="mailto:yogeshtundiya945@gmail.com" class="magnetic-item">yogeshtundiya945@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Scroll Container -->
+  <main class="main-content" id="main-content">
+
+    <!-- Split-Screen Journal Section -->
+    <section class="section blog-split-section">
+      <div class="blog-split-container">
+        
+        <!-- Left Panel: Sidebar Info & Search (Sticky) -->
+        <aside class="blog-sidebar">
+          <div class="blog-sidebar-sticky">
+            <div class="blog-sidebar-header">
+              <span class="section-num">JOURNAL /</span>
+              <h1 class="blog-sidebar-title">DEVLOG</h1>
+            </div>
+            
+            <div class="blog-profile-card">
+              <div class="blog-avatar-container">
+                <img src="assets/WhatsAppImage2026-05-26at6.05.23PM.png" alt="Yogesh Tundiya Profile" class="blog-avatar-img">
+              </div>
+              <div class="blog-profile-info">
+                <h3>Yogesh Tundiya</h3>
+                <p class="profile-role">Creative Developer &amp; AI Practitioner</p>
+                <p class="profile-loc">Based in Gujarat, India</p>
+              </div>
+            </div>
+
+            <p class="blog-sidebar-desc">
+              Daily developer updates, algorithmic discoveries, and detailed research notes. Filtering static design frameworks into interactive codebases.
+            </p>
+
+            <!-- Search & Filters Container -->
+            <div class="blog-controls">
+              <div class="blog-search-wrapper">
+                <input type="text" id="blog-search" class="blog-search-input" placeholder="SEARCH LOGS...">
+                <span class="search-icon">&telrec;</span>
+              </div>
+
+              <div class="blog-filter-tabs-wrapper">
+                <span class="control-label">FILTER CATEGORY</span>
+                <div class="filter-tabs" id="blog-filter-tabs">
+                  <button class="filter-btn active" data-filter="all">ALL ENTRIES</button>
+                  <button class="filter-btn" data-filter="frontend">CREATIVE DEV</button>
+                  <button class="filter-btn" data-filter="ai-ml">AI &amp; ML</button>
+                  <button class="filter-btn" data-filter="web3">BLOCKCHAIN</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="sidebar-status-box">
+              <span class="sidebar-status-dot"></span>
+              <span id="blog-count-display">5 Entries Loaded</span>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Right Panel: Devlog Timeline Feed (Scrolling) -->
+        <div class="blog-feed">
+          <div class="blog-feed-timeline" id="blog-grid">
+            
+            <!-- Entry 1: Deep Read Article (Creative Dev) -->
+            <article class="blog-card" data-category="frontend" data-post-type="article">
+              <div class="blog-card-glow"></div>
+              <div class="blog-card-meta">
+                <span class="post-type-badge article-badge">DEEP READ</span>
+                <span class="blog-card-date">May 20, 2026</span>
+              </div>
+              <div class="blog-card-body">
+                <h3 class="blog-card-title">Bridging Static Designs with Fluid Animations in Web Interfaces</h3>
+                <p class="blog-card-excerpt">
+                  Static interfaces fail to hold modern user attention. Learn how GSAP timelines, requestAnimationFrame loops, and hardware-accelerated CSS layers transform static layouts into immersive digital experiences.
+                </p>
+                
+                <!-- Hidden Full Content for Reader Overlay -->
+                <div class="hidden-article-content" style="display: none;">
+                  <h2>The Shift to Fluid Motion</h2>
+                  <p>In modern web design, standard static layouts are no longer enough to build user engagement. To capture interest, website interfaces must feel alive. Introducing organic motion parameters creates a dialogue between user interaction and layout response, improving task performance and brand recognition.</p>
+                  
+                  <h2>Optimizing for 60fps Budgets</h2>
+                  <p>Adding animations shouldn't compromise speed. To avoid layout thrashing and maintain 60fps, developers should prioritize hardware-accelerated properties:</p>
+                  <ul>
+                    <li>Use <strong>transform (translate3d, scale, rotate)</strong> instead of modifying raw coordinates like top/left.</li>
+                    <li>Utilize <strong>opacity</strong> transitions rather than display/visibility changes.</li>
+                    <li>Apply <code>will-change: transform, opacity</code> to alert browser engines to promote elements to GPU render layers.</li>
+                  </ul>
+
+                  <h2>Building Stagger Timelines with GSAP</h2>
+                  <p>Timelines allow precise coordination of complex, multi-element entries. Rather than chaining disjointed animations, orchestrate them inside a unified GSAP timeline:</p>
+                  <pre><code>const tl = gsap.timeline({ defaults: { ease: "power4.out", duration: 1.2 } });
+tl.from(".title-row span", { y: 120, stagger: 0.1 })
+  .from(".hero-sub", { opacity: 0, y: 30 }, "-=0.8")
+  .from(".bento-card", { scale: 0.95, opacity: 0, stagger: 0.15 }, "-=0.6");</code></pre>
+
+                  <p>By shifting calculation tasks to GPU layers, we cut iteration cycles and interface delays, keeping page scrolling buttery smooth.</p>
+                </div>
+
+                <div class="blog-card-tech">
+                  <span>GSAP</span> <span>GPU ACCELERATION</span> <span>REFLOW OPTIMIZATION</span>
+                </div>
+              </div>
+              <div class="blog-card-footer">
+                <button class="read-more-btn" data-action="read-depth">READ IN DEPTH &rarr;</button>
+              </div>
+            </article>
+
+            <!-- Entry 2: Devlog Daily Update (AI-ML) -->
+            <article class="blog-card" data-category="ai-ml" data-post-type="log">
+              <div class="blog-card-glow"></div>
+              <div class="blog-card-meta">
+                <span class="post-type-badge log-badge">DAILY LOG</span>
+                <span class="blog-card-date">May 15, 2026</span>
+              </div>
+              <div class="blog-card-body">
+                <h3 class="blog-card-title">DevLog #15: Optimized Node.js Event Loop Blockages in Socket Pool</h3>
+                <p class="blog-card-excerpt">
+                  Investigated event loop delays on the telemetry messaging socket server. Found that JSON parsing of huge logs was blocking threads. Refactored to stream logs directly to storage, reducing event loop lag from 120ms to 4ms.
+                </p>
+                <div class="blog-card-tech">
+                  <span>NODE.JS</span> <span>EVENT LOOP</span> <span>STREAMS</span> <span>PERFORMANCE</span>
+                </div>
+              </div>
+              <div class="blog-card-footer">
+                <span class="log-indicator">DAILY SNAPSHOT &bull; NO ACTION REQUIRED</span>
+              </div>
+            </article>
+
+            <!-- Entry 3: Deep Read Article (AI-ML) -->
+            <article class="blog-card" data-category="ai-ml" data-post-type="article">
+              <div class="blog-card-glow"></div>
+              <div class="blog-card-meta">
+                <span class="post-type-badge article-badge">DEEP READ</span>
+                <span class="blog-card-date">Apr 12, 2026</span>
+              </div>
+              <div class="blog-card-body">
+                <h3 class="blog-card-title">Predictive Sensor Diagnostics: Building ML Pipelines with Python</h3>
+                <p class="blog-card-excerpt">
+                  An inside look at our sensor telemetry diagnostics pipeline: preprocessing high-frequency dataset inputs in Python, training Random Forest classifiers, and streaming coordinates to dashboards.
+                </p>
+
+                <!-- Hidden Full Content for Reader Overlay -->
+                <div class="hidden-article-content" style="display: none;">
+                  <h2>The telemetry parsing challenge</h2>
+                  <p>In modern industrial applications, reading and resolving anomalies from high-frequency hardware sensor streams is critical to prevent engine failure. Our diagnostics pipeline parses raw telemetry inputs across active run sessions, tracking indicators such as heat thresholds, engine vibration frequency, and pressure variables.</p>
+                  
+                  <h2>Pipeline steps: preprocessing &amp; cleaning</h2>
+                  <p>Raw hardware logs are often noisy and full of null offsets. The data preparation workflow inside our Python environment performs the following steps:</p>
+                  <ul>
+                    <li>Fills telemetry null gaps using rolling median metrics.</li>
+                    <li>Scales inputs using a StandardScaler to avoid feature weight bias.</li>
+                    <li>Extracts time-series window stats: calculating standard deviations, rolling means, and peaks over a 50-ms window.</li>
+                  </ul>
+
+                  <h2>Model Selection &amp; Local Training</h2>
+                  <p>We trained a Random Forest Classifier to analyze the feature inputs. Random Forests are robust against noise and offer clear feature importance scores:</p>
+                  <pre><code>from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import StandardScaler
+
+# Pipeline setup
+scaler = StandardScaler()
+model = RandomForestClassifier(n_estimators=100, max_depth=12, random_state=42)
+
+X_train_scaled = scaler.fit_transform(X_train)
+model.fit(X_train_scaled, y_train)</code></pre>
+
+                  <p>By hosting predictive diagnostics models in close proximity to real-time dashboards, we help users anticipate equipment maintenance issues early.</p>
+                </div>
+
+                <div class="blog-card-tech">
+                  <span>PYTHON</span> <span>SCIKIT-LEARN</span> <span>NEXT.JS</span> <span>TELEMETRY</span>
+                </div>
+              </div>
+              <div class="blog-card-footer">
+                <button class="read-more-btn" data-action="read-depth">READ IN DEPTH &rarr;</button>
+              </div>
+            </article>
+
+            <!-- Entry 4: Devlog Daily Update (Blockchain) -->
+            <article class="blog-card" data-category="web3" data-post-type="log">
+              <div class="blog-card-glow"></div>
+              <div class="blog-card-meta">
+                <span class="post-type-badge log-badge">DAILY LOG</span>
+                <span class="blog-card-date">Mar 22, 2026</span>
+              </div>
+              <div class="blog-card-body">
+                <h3 class="blog-card-title">DevLog #14: Implemented Custom Reentrancy Guards on Multi-Sig Audits</h3>
+                <p class="blog-card-excerpt">
+                  Audited multi-sig contract locking logic. Implemented custom reentrancy mutex locks to prevent re-entrant token withdrawals during recursive fallback execution, saving gas over OpenZeppelin defaults.
+                </p>
+                <div class="blog-card-tech">
+                  <span>SOLIDITY</span> <span>MUTEX LOCKS</span> <span>CONTRACT AUDIT</span> <span>GAS</span>
+                </div>
+              </div>
+              <div class="blog-card-footer">
+                <span class="log-indicator">DAILY SNAPSHOT &bull; NO ACTION REQUIRED</span>
+              </div>
+            </article>
+
+            <!-- Entry 5: Deep Read Article (Blockchain) -->
+            <article class="blog-card" data-category="web3" data-post-type="article">
+              <div class="blog-card-glow"></div>
+              <div class="blog-card-meta">
+                <span class="post-type-badge article-badge">DEEP READ</span>
+                <span class="blog-card-date">Mar 05, 2026</span>
+              </div>
+              <div class="blog-card-body">
+                <h3 class="blog-card-title">Solidity Smart Contract Security: Gas Optimization and Auditing</h3>
+                <p class="blog-card-excerpt">
+                  Immutable codes leave zero room for error. We break down checks-effects-interactions patterns, reentrancy attacks, and optimization techniques for minimizing EVM gas usage.
+                </p>
+
+                <!-- Hidden Full Content for Reader Overlay -->
+                <div class="hidden-article-content" style="display: none;">
+                  <h2>The Immutable Challenge</h2>
+                  <p>Deploying smart contracts to public blockchains (such as Ethereum) is irreversible. Once deployed, the code cannot be patched easily. Because smart contracts manage financial assets and tokens, logical vulnerabilities can lead to immediate exploit vectors. Auditing contract code prior to mainnet launch is vital.</p>
+                  
+                  <h2>Securing Logic: Checks-Effects-Interactions</h2>
+                  <p>Most token draining exploits trace back to reentrancy bugs, where an external call invokes the contract's withdrawal logic recursively before the state balance updates. Apply the <strong>Checks-Effects-Interactions</strong> pattern to mitigate this risk:</p>
+                  <pre><code>// UNSAFE PATTERN
+function withdraw(uint amount) public {
+    require(balances[msg.sender] >= amount);
+    (bool success, ) = msg.sender.call{value: amount}(""); // External call first
+    require(success);
+    balances[msg.sender] -= amount; // State update last
+}
+
+// SECURE PATTERN
+function withdraw(uint amount) public {
+    require(balances[msg.sender] >= amount); // 1. Checks
+    balances[msg.sender] -= amount;          // 2. Effects (State updates)
+    (bool success, ) = msg.sender.call{value: amount}(""); // 3. Interactions
+    require(success);
+}</code></pre>
+
+                  <h2>Gas Optimizations for Solidity</h2>
+                  <p>Minimizing EVM gas costs reduces execution fees for your users. Key optimizations include:</p>
+                  <ul>
+                    <li>Store values in memory or calldata instead of storage variables where possible.</li>
+                    <li>Utilize tightly packed variables to group values into single 256-bit slots (e.g., uint128 and uint128 side-by-side).</li>
+                    <li>Avoid zero-initialization (variables are set to zero by default, setting them manually consumes extra gas).</li>
+                  </ul>
+                </div>
+
+                <div class="blog-card-tech">
+                  <span>SOLIDITY</span> <span>REENTRANCY</span> <span>EVM GAS</span> <span>AUDITING</span>
+                </div>
+              </div>
+              <div class="blog-card-footer">
+                <button class="read-more-btn" data-action="read-depth">READ IN DEPTH &rarr;</button>
+              </div>
+            </article>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- In-Depth Article Reader Overlay -->
+    <div class="blog-reader-overlay" id="blog-reader" aria-hidden="true" data-lenis-prevent>
+      <div class="blog-reader-backdrop" id="reader-backdrop"></div>
+      
+      <div class="reader-container" id="reader-container">
+        <!-- Close Button (Fixed at the top right of the modal container) -->
+        <button class="reader-close-btn" id="reader-close-btn" aria-label="Close Reader">
+          <span class="close-text">CLOSE</span>
+          <div class="close-icon-circle">
+            <span class="close-line close-line-1"></span>
+            <span class="close-line close-line-2"></span>
+          </div>
+        </button>
+
+        <!-- Reader Reading Progress Bar -->
+        <div class="reader-progress-track">
+          <div class="reader-progress-bar" id="reader-progress-bar"></div>
+        </div>
+
+        <!-- Reader Body Content -->
+        <div class="reader-content-scroll" id="reader-scroll-wrapper" data-lenis-prevent>
+          <!-- Reader Header -->
+          <header class="reader-header">
+            <div class="reader-header-meta">
+              <span class="reader-category" id="reader-meta-category">CATEGORY</span>
+              <span class="reader-date" id="reader-meta-date">DATE</span>
+            </div>
+            
+            <h1 class="reader-title" id="reader-title-display">Article Title</h1>
+          </header>
+
+          <div class="reader-body" id="reader-body-content">
+            <!-- Content gets loaded dynamically here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact & Footer -->
+    <section class="section contact" id="contact" style="border-top: 1px solid var(--color-border); padding-top: 5rem;">
+      <div class="contact-container">
+        <footer class="footer" style="border-top: none; padding-top: 0;">
+          <div class="footer-top">
+            <div class="footer-col">
+              <h4>CREDITS</h4>
+              <p>YOGESH TUNDIYA &copy;2026</p>
+              <p>POWERED BY CODEX INFOTECH</p>
+            </div>
+            <div class="footer-col">
+              <h4>SOCIALS</h4>
+              <div class="footer-social-links">
+                <a href="https://github.com/YogeshTundiya" target="_blank" rel="noopener noreferrer" class="magnetic-item">GITHUB</a>
+                <a href="https://www.linkedin.com/in/yogesh-tundiya-776195270/" target="_blank" rel="noopener noreferrer" class="magnetic-item">LINKEDIN</a>
+                <a href="https://x.com/YTundiya" target="_blank" rel="noopener noreferrer" class="magnetic-item">TWITTER</a>
+              </div>
+            </div>
+            <div class="footer-col">
+              <h4>INDEX</h4>
+              <p><a href="index.html#hero" class="magnetic-item">BACK TO PORTFOLIO</a></p>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            <div class="footer-logo">
+              <span>YOGESH TUNDIYA</span>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <!-- AnimeJS Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+  <!-- Lenis Smooth Scroll -->
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+  <!-- Main Script -->
+  <script src="main.js"></script>
+</body>
+
+</html>
