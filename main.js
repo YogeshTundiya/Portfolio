@@ -344,8 +344,21 @@ function initNavigation() {
   const navOverlay = document.getElementById("nav-overlay");
   const navLinks = document.querySelectorAll(".nav-link");
   const header = document.getElementById("main-header");
+  const navContainer = document.querySelector(".nav-container");
 
   if (!menuBtn || !navOverlay) return;
+
+  // Toggle scrolling indicator for responsive menu
+  if (navContainer) {
+    let scrollTimeout;
+    navContainer.addEventListener("scroll", () => {
+      navContainer.classList.add("is-scrolling");
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        navContainer.classList.remove("is-scrolling");
+      }, 800);
+    }, { passive: true });
+  }
 
   menuBtn.addEventListener("click", () => {
     const isOpen = menuBtn.classList.toggle("burger-open");
