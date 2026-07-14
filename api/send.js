@@ -18,7 +18,27 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
-  const { name, email, message } = req.body || {};
+  let body = req.body;
+  if (typeof body === 'string') {
+    try {
+      body = JSON.parse(body);
+    } catch (e) {
+      body = {};
+    }
+  } else if (!body || Object.keys(body).length === 0) {
+    try {
+      const buffers = [];
+      for await (const chunk of req) {
+        buffers.push(chunk);
+      }
+      const rawBody = Buffer.concat(buffers).toString();
+      body = JSON.parse(rawBody);
+    } catch (e) {
+      body = {};
+    }
+  }
+
+  const { name, email, message } = body || {};
 
   if (!name || !email || !message) {
     return res.status(400).json({ error: 'Name, Email, and Message are required' });
@@ -365,6 +385,12 @@ export default async function handler(req, res) {
     }
 
     // 2. Send Email to Client (Auto-reply)
+    // NOTE: In Resend's free tier sandbox mode, you can ONLY send emails to your verified account email (yogeshtundiya945@gmail.com).
+    // Attempting to send to the client's email (escapedEmail) will cause Resend to return a 403 error.
+    // Therefore, we send a [Copy] of the auto-reply to YOUR email so you get a receipt and can see what it looks like.
+    // 
+    // ONCE YOU VERIFY A CUSTOM DOMAIN:
+    // Change 'to: "yogeshtundiya945@gmail.com"' below to 'to: escapedEmail' to send it to the client!
     const clientEmailRes = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
@@ -373,15 +399,15 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         from: 'Yogesh Tundiya <onboarding@resend.dev>',
-        to: escapedEmail,
-        subject: `Thank you for reaching out, ${escapedName}!`,
+        to: 'yogeshtundiya945@gmail.com', // Bypasses sandbox error. Change to escapedEmail once domain is verified!
+        subject: `[Receipt Copy] Thank you for reaching out, ${escapedName}!`,
         html: clientHtml,
       }),
     });
 
     const clientData = await clientEmailRes.json();
     if (!clientEmailRes.ok) {
-      console.error('Failed to send auto-reply:', clientData.message || clientEmailRes.statusText);
+      console.error('Failed to send auto-reply receipt copy:', clientData.message || clientEmailRes.statusText);
     }
 
     return res.status(200).json({ success: true, message: 'Emails processed successfully' });
