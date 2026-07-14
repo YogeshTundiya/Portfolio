@@ -632,6 +632,14 @@ function initContactForm() {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
+    // Prepare form payload (MUST be done before disabling inputs, otherwise values are empty/null)
+    const formData = new FormData(form);
+    const payload = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      message: formData.get("message")
+    };
+
     // Disable all inputs and button to prevent double-submission
     inputs.forEach(input => input.disabled = true);
     submitBtn.disabled = true;
@@ -649,14 +657,6 @@ function initContactForm() {
 
     submitBtn.style.color = "#ffffff";
     submitBtn.style.borderColor = "var(--color-accent)";
-
-    // Prepare form payload
-    const formData = new FormData(form);
-    const payload = {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      message: formData.get("message")
-    };
 
     // Send actual POST request to the API endpoint
     fetch("/api/send", {
