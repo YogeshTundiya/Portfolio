@@ -97,11 +97,8 @@ export default async function handler(req, res) {
   </tr>
   <!-- Hero -->
   <tr>
-    <td align="center" style="padding:20px 40px 10px;">
-      <div style="font-size:80px;font-weight:900;line-height:1;color:#f0f0eb;letter-spacing:8px;">
-        INQUIRY
-      </div>
-      <img src="https://yogesh-tundiya.vercel.app/assets/My.png" width="280" style="display:block;margin-top:-70px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.05);" alt="Yogesh Tundiya">
+    <td align="center" style="padding:30px 40px 10px;">
+      <img src="https://yogesh-tundiya.vercel.app/assets/My.png" width="280" style="display:block;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.05);" alt="Yogesh Tundiya">
     </td>
   </tr>
   <!-- Content -->
@@ -189,11 +186,8 @@ export default async function handler(req, res) {
   </tr>
   <!-- Hero -->
   <tr>
-    <td align="center" style="padding:20px 40px 10px;">
-      <div style="font-size:80px;font-weight:900;line-height:1;color:#f0f0eb;letter-spacing:8px;">
-        YOGESH
-      </div>
-      <img src="https://yogesh-tundiya.vercel.app/assets/My.png" width="280" style="display:block;margin-top:-70px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.05);" alt="Yogesh Tundiya">
+    <td align="center" style="padding:30px 40px 10px;">
+      <img src="https://yogesh-tundiya.vercel.app/assets/My.png" width="280" style="display:block;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.05);" alt="Yogesh Tundiya">
     </td>
   </tr>
   <!-- Content -->
