@@ -69,132 +69,91 @@ export default async function handler(req, res) {
   const adminHtml = `<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>New Inquiry</title>
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background-color: #f9f9f6;
-      color: #1c1c1a;
-      margin: 0;
-      padding: 0;
-      -webkit-font-smoothing: antialiased;
-    }
-    .wrapper {
-      width: 100%;
-      background-color: #f9f9f6;
-      padding: 40px 20px;
-      box-sizing: border-box;
-    }
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-      background-color: #ffffff;
-      border: 1px solid #e3e3de;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 20px rgba(28, 28, 26, 0.03);
-    }
-    .header {
-      background-color: #2b50f7;
-      padding: 30px;
-      color: #ffffff;
-    }
-    .header h1 {
-      margin: 0;
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-    .content {
-      padding: 40px 30px;
-    }
-    .meta-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 30px;
-    }
-    .meta-row {
-      border-bottom: 1px solid #f0f0eb;
-    }
-    .meta-row:last-child {
-      border-bottom: none;
-    }
-    .meta-label {
-      padding: 15px 0;
-      font-size: 12px;
-      color: #7a7a72;
-      text-transform: uppercase;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      width: 30%;
-    }
-    .meta-value {
-      padding: 15px 0;
-      font-size: 15px;
-      color: #1c1c1a;
-      font-weight: 500;
-    }
-    .brief-title {
-      font-size: 12px;
-      color: #7a7a72;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 15px;
-      margin-top: 10px;
-    }
-    .brief-content {
-      background-color: #f9f9f6;
-      border-left: 3px solid #2b50f7;
-      padding: 20px;
-      font-size: 15px;
-      line-height: 1.6;
-      color: #1c1c1a;
-      border-radius: 0 8px 8px 0;
-      white-space: pre-wrap;
-    }
-    .footer {
-      background-color: #f9f9f6;
-      padding: 25px 30px;
-      border-top: 1px solid #e3e3de;
-      text-align: center;
-      font-size: 12px;
-      color: #7a7a72;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Inquiry Received</title>
 </head>
-<body>
-  <div class="wrapper">
-    <div class="container">
-      <div class="header">
-        <h1>New Portfolio Inquiry</h1>
+<body style="margin:0;padding:0;background:#f9f9f6;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" bgcolor="#f9f9f6">
+<tr>
+<td align="center">
+<table width="640" cellpadding="0" cellspacing="0" style="max-width:640px;background:#ffffff;margin:40px auto;border-radius:24px;overflow:hidden;border:1px solid #e3e3de;">
+  <!-- Header -->
+  <tr>
+    <td style="padding:30px 40px;">
+      <table width="100%">
+        <tr>
+          <td align="left" style="font-size:24px;font-weight:800;color:#1c1c1a;letter-spacing:1px;text-transform:uppercase;">
+            PORTFOLIO
+          </td>
+          <td align="right">
+            <span style="font-size:11px;background:#e8ecfe;padding:10px 18px;border-radius:30px;color:#2b50f7;border:1px solid #2b50f7;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">
+              ● New Client Inquiry
+            </span>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <!-- Hero -->
+  <tr>
+    <td align="center" style="padding:20px 40px 10px;">
+      <div style="font-size:80px;font-weight:900;line-height:1;color:#f0f0eb;letter-spacing:8px;">
+        INQUIRY
       </div>
-      <div class="content">
-        <table class="meta-table">
-          <tr class="meta-row">
-            <td class="meta-label">Client Name</td>
-            <td class="meta-value">${escapedName}</td>
-          </tr>
-          <tr class="meta-row">
-            <td class="meta-label">Email Address</td>
-            <td class="meta-value"><a href="mailto:${escapedEmail}" style="color: #2b50f7; text-decoration: none;">${escapedEmail}</a></td>
-          </tr>
-          <tr class="meta-row">
-            <td class="meta-label">Submitted At</td>
-            <td class="meta-value">${dateString}</td>
-          </tr>
-        </table>
-        <div class="brief-title">Project Brief</div>
-        <div class="brief-content">${escapedMessage}</div>
+      <img src="https://yogesh-tundiya.vercel.app/assets/My.png" width="280" style="display:block;margin-top:-70px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.05);" alt="Yogesh Tundiya">
+    </td>
+  </tr>
+  <!-- Content -->
+  <tr>
+    <td align="center" style="padding:10px 50px 20px;">
+      <div style="font-size:12px;letter-spacing:3px;font-weight:bold;color:#7a7a72;text-transform:uppercase;margin-bottom:20px;">
+        Submission Details
       </div>
-      <div class="footer">
-        This inquiry was sent from your portfolio contact form.
-      </div>
-    </div>
-  </div>
+      <h1 style="font-size:36px;line-height:44px;color:#1c1c1a;margin:0;font-weight:800;">
+        New Lead from ${escapedName}
+      </h1>
+      
+      <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:25px;text-align:left;font-size:14px;line-height:24px;color:#1c1c1a;">
+        <tr>
+          <td style="padding:10px 0;border-bottom:1px solid #f0f0eb;color:#7a7a72;width:30%;font-weight:600;">Client Name:</td>
+          <td style="padding:10px 0;border-bottom:1px solid #f0f0eb;font-weight:500;">${escapedName}</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 0;border-bottom:1px solid #f0f0eb;color:#7a7a72;font-weight:600;">Client Email:</td>
+          <td style="padding:10px 0;border-bottom:1px solid #f0f0eb;font-weight:500;"><a href="mailto:${escapedEmail}" style="color:#2b50f7;text-decoration:none;">${escapedEmail}</a></td>
+        </tr>
+        <tr>
+          <td style="padding:10px 0;border-bottom:1px solid #f0f0eb;color:#7a7a72;font-weight:600;">Submitted At:</td>
+          <td style="padding:10px 0;border-bottom:1px solid #f0f0eb;font-weight:500;">${dateString}</td>
+        </tr>
+      </table>
+
+      <p style="font-size:15px;line-height:26px;color:#1c1c1a;margin-top:25px;text-align:left;background:#f9f9f6;border-left:3px solid #2b50f7;padding:20px;border-radius:0 8px 8px 0;">
+        <strong>Project Brief:</strong><br>
+        "${escapedMessage}"
+      </p>
+    </td>
+  </tr>
+  <!-- CTA -->
+  <tr>
+    <td align="center" style="padding:10px 40px 40px;">
+      <a href="mailto:${escapedEmail}" style="display:inline-block;background:#2b50f7;color:#ffffff;text-decoration:none;padding:18px 42px;border-radius:30px;font-weight:bold;letter-spacing:1px;font-size:13px;text-transform:uppercase;box-shadow:0 4px 12px rgba(43,80,247,0.25);">
+        Reply to ${escapedName}
+      </a>
+    </td>
+  </tr>
+  <!-- Footer -->
+  <tr>
+    <td align="center" style="padding:35px;background:#f9f9f6;font-size:12px;color:#7a7a72;border-top:1px solid #e3e3de;">
+      This notification was sent from your portfolio contact form.<br><br>
+      &copy; 2026 Yogesh Tundiya. All rights reserved.
+    </td>
+  </tr>
+</table>
+</td>
+</tr>
+</table>
 </body>
 </html>`;
 
@@ -202,164 +161,104 @@ export default async function handler(req, res) {
   const clientHtml = `<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thank You</title>
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background-color: #f9f9f6;
-      color: #1c1c1a;
-      margin: 0;
-      padding: 0;
-      -webkit-font-smoothing: antialiased;
-    }
-    .wrapper {
-      width: 100%;
-      background-color: #f9f9f6;
-      padding: 40px 20px;
-      box-sizing: border-box;
-    }
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-      background-color: #ffffff;
-      border: 1px solid #e3e3de;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 20px rgba(28, 28, 26, 0.03);
-    }
-    .header {
-      padding: 40px 40px 20px 40px;
-      border-bottom: 1px solid #f0f0eb;
-    }
-    .logo {
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      color: #1c1c1a;
-      text-transform: uppercase;
-    }
-    .content {
-      padding: 40px;
-    }
-    .greeting {
-      font-size: 20px;
-      font-weight: 600;
-      margin-top: 0;
-      margin-bottom: 20px;
-      color: #1c1c1a;
-    }
-    .body-text {
-      font-size: 15px;
-      line-height: 1.6;
-      color: #7a7a72;
-      margin-bottom: 30px;
-    }
-    .summary-card {
-      background-color: #f9f9f6;
-      border: 1px solid #e3e3de;
-      border-radius: 8px;
-      padding: 25px;
-      margin-bottom: 35px;
-    }
-    .summary-title {
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: #1c1c1a;
-      margin-top: 0;
-      margin-bottom: 15px;
-    }
-    .summary-item {
-      font-size: 14px;
-      line-height: 1.5;
-      color: #7a7a72;
-      margin-bottom: 10px;
-    }
-    .summary-item strong {
-      color: #1c1c1a;
-    }
-    .action-btn-wrapper {
-      margin-bottom: 10px;
-    }
-    .action-btn {
-      display: inline-block;
-      background-color: #2b50f7;
-      color: #ffffff !important;
-      text-decoration: none;
-      padding: 15px 30px;
-      font-size: 13px;
-      font-weight: 600;
-      border-radius: 30px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      box-shadow: 0 4px 10px rgba(43, 80, 247, 0.2);
-    }
-    .signature {
-      border-top: 1px solid #f0f0eb;
-      padding-top: 30px;
-      margin-top: 35px;
-    }
-    .sig-name {
-      font-size: 15px;
-      font-weight: 600;
-      color: #1c1c1a;
-      margin: 0 0 5px 0;
-    }
-    .sig-title {
-      font-size: 13px;
-      color: #7a7a72;
-      margin: 0;
-    }
-    .footer {
-      background-color: #f9f9f6;
-      padding: 25px 40px;
-      border-top: 1px solid #e3e3de;
-      font-size: 12px;
-      color: #7a7a72;
-    }
-    .footer a {
-      color: #2b50f7;
-      text-decoration: none;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You for Getting in Touch</title>
 </head>
-<body>
-  <div class="wrapper">
-    <div class="container">
-      <div class="header">
-        <div class="logo">PORTFOLIO</div>
+<body style="margin:0;padding:0;background:#f9f9f6;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" bgcolor="#f9f9f6">
+<tr>
+<td align="center">
+<table width="640" cellpadding="0" cellspacing="0" style="max-width:640px;background:#ffffff;margin:40px auto;border-radius:24px;overflow:hidden;border:1px solid #e3e3de;">
+  <!-- Header -->
+  <tr>
+    <td style="padding:30px 40px;">
+      <table width="100%">
+        <tr>
+          <td align="left" style="font-size:24px;font-weight:800;color:#1c1c1a;letter-spacing:1px;text-transform:uppercase;">
+            PORTFOLIO
+          </td>
+          <td align="right">
+            <span style="font-size:11px;background:#e8ecfe;padding:10px 18px;border-radius:30px;color:#2b50f7;border:1px solid #2b50f7;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">
+              ● Available for Freelance
+            </span>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <!-- Hero -->
+  <tr>
+    <td align="center" style="padding:20px 40px 10px;">
+      <div style="font-size:80px;font-weight:900;line-height:1;color:#f0f0eb;letter-spacing:8px;">
+        YOGESH
       </div>
-      <div class="content">
-        <h2 class="greeting">Hello ${escapedName},</h2>
-        <p class="body-text">
-          Thank you for reaching out! I've received your project inquiry. I'm excited to learn more about what you're building. I will review your message and get back to you within 24 to 48 hours.
-        </p>
-        
-        <div class="summary-card">
-          <h3 class="summary-title">Summary of Your Inquiry</h3>
-          <div class="summary-item"><strong>Name:</strong> ${escapedName}</div>
-          <div class="summary-item"><strong>Email:</strong> ${escapedEmail}</div>
-          <div class="summary-item" style="margin-bottom: 0;"><strong>Message Brief:</strong> ${escapedMessage}</div>
-        </div>
-
-        <div class="action-btn-wrapper">
-          <a href="https://yogesh.studio/" target="_blank" class="action-btn">Visit Portfolio</a>
-        </div>
-
-        <div class="signature">
-          <h4 class="sig-name">Yogesh Tundiya</h4>
-          <p class="sig-title">Creative Web Designer & Developer</p>
-        </div>
+      <img src="https://yogesh-tundiya.vercel.app/assets/My.png" width="280" style="display:block;margin-top:-70px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.05);" alt="Yogesh Tundiya">
+    </td>
+  </tr>
+  <!-- Content -->
+  <tr>
+    <td align="center" style="padding:10px 50px 20px;">
+      <div style="font-size:12px;letter-spacing:3px;font-weight:bold;color:#7a7a72;text-transform:uppercase;margin-bottom:20px;">
+        MESSAGE RECEIVED
       </div>
-      <div class="footer">
-        &copy; 2026 Yogesh Tundiya. All rights reserved.<br>
-        Bhavnagar, Gujarat, India.
-      </div>
-    </div>
-  </div>
+      <h1 style="font-size:36px;line-height:44px;color:#1c1c1a;margin:0;font-weight:800;">
+        Thank You for Reaching Out!
+      </h1>
+      <p style="font-size:16px;line-height:28px;color:#7a7a72;margin-top:20px;max-width:480px;text-align:left;background:#f9f9f6;border-left:3px solid #2b50f7;padding:20px;border-radius:0 8px 8px 0;">
+        <strong>Hello ${escapedName},</strong><br><br>
+        I have received your project inquiry and message brief. I'm excited to learn more about what you're crafting! I will review the details and get back to you within 24 to 48 hours.<br><br>
+        <strong>Your Project Brief:</strong><br>
+        "${escapedMessage}"
+      </p>
+    </td>
+  </tr>
+  <!-- CTA -->
+  <tr>
+    <td align="center" style="padding:10px 40px 40px;">
+      <a href="https://yogesh-tundiya.vercel.app/" style="display:inline-block;background:#2b50f7;color:#ffffff;text-decoration:none;padding:18px 42px;border-radius:30px;font-weight:bold;letter-spacing:1px;font-size:13px;text-transform:uppercase;box-shadow:0 4px 12px rgba(43,80,247,0.25);">
+        Visit Portfolio
+      </a>
+    </td>
+  </tr>
+  <!-- Divider -->
+  <tr>
+    <td style="padding:0 40px;">
+      <hr style="border:none;border-top:1px solid #e3e3de;">
+    </td>
+  </tr>
+  <!-- Skills / Stats -->
+  <tr>
+    <td style="padding:35px 40px;">
+      <table width="100%">
+        <tr>
+          <td align="center">
+            <div style="font-size:24px;font-weight:800;color:#1c1c1a;">B.Tech</div>
+            <div style="font-size:12px;color:#7a7a72;margin-top:4px;">Computer Science</div>
+          </td>
+          <td align="center">
+            <div style="font-size:24px;font-weight:800;color:#1c1c1a;">15+</div>
+            <div style="font-size:12px;color:#7a7a72;margin-top:4px;">Crafts Completed</div>
+          </td>
+          <td align="center">
+            <div style="font-size:24px;font-weight:800;color:#1c1c1a;">100%</div>
+            <div style="font-size:12px;color:#7a7a72;margin-top:4px;">Clean & Fluid Code</div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <!-- Footer -->
+  <tr>
+    <td align="center" style="padding:35px;background:#f9f9f6;font-size:12px;color:#7a7a72;border-top:1px solid #e3e3de;">
+      This auto-reply was generated from the contact form on <a href="https://yogesh-tundiya.vercel.app/" style="color:#2b50f7;text-decoration:none;font-weight:600;">yogesh-tundiya.vercel.app</a>.<br><br>
+      &copy; 2026 Yogesh Tundiya. All rights reserved.
+    </td>
+  </tr>
+</table>
+</td>
+</tr>
+</table>
 </body>
 </html>`;
 
