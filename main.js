@@ -160,38 +160,39 @@ function startEntranceAnimation() {
     easing: "easeOutQuart"
   });
 
-  // Make title rows visible instantly so masks handle the reveal
-  anime({
-    targets: ".hero-title-row",
-    opacity: [0, 1],
-    duration: 100,
-    easing: "linear"
-  });
+  // Check if we are on the main portfolio page (has hero section)
+  const isMainPage = document.querySelector(".hero-overlap") !== null;
 
-  // Staggered text mask-reveal for words & capsules
-  anime({
-    targets: ".title-word-inner",
-    translateY: ["115%", "0%"],
-    duration: 1400,
-    delay: anime.stagger(80, { start: 150 }),
-    easing: "cubicBezier(0.16, 1, 0.3, 1)",
-    complete: () => {
-      // Prevent scaling hover state of inline capsules from being clipped
-      document.querySelectorAll(".title-word-mask").forEach(mask => {
-        mask.style.overflow = "visible";
-      });
-    }
-  });
+  if (isMainPage) {
+    // 1. Reveal Background Massive Text (scale & fade in)
+    anime({
+      targets: ".hero-bg-text",
+      scale: [0.88, 1],
+      opacity: [0, 0.95],
+      duration: 1500,
+      easing: "easeOutExpo"
+    });
 
-  // Reveal Hero description & action button
-  anime({
-    targets: [".hero-minimal-sub", ".hero-minimal-action"],
-    translateY: [30, 0],
-    opacity: [0, 1],
-    duration: 1000,
-    delay: anime.stagger(150, { start: 800 }),
-    easing: "easeOutCubic"
-  });
+    // 2. Reveal Foreground Portrait (slide up & fade in)
+    anime({
+      targets: ".hero-fg-img",
+      translateY: [80, 0],
+      opacity: [0, 1],
+      duration: 1400,
+      delay: 200,
+      easing: "cubicBezier(0.16, 1, 0.3, 1)"
+    });
+
+    // 3. Staggered reveal for details: Badge, Desc, Action Button
+    anime({
+      targets: [".hero-badge-text", ".hero-description", ".hero-action-btn"],
+      translateY: [25, 0],
+      opacity: [0, 1],
+      duration: 1000,
+      delay: anime.stagger(120, { start: 600 }),
+      easing: "easeOutCubic"
+    });
+  }
 }
 
 /* ==========================================================================
@@ -649,12 +650,30 @@ function initContactForm() {
     submitBtn.style.color = "#ffffff";
     submitBtn.style.borderColor = "var(--color-accent)";
 
-    // Simulate async API call
-    setTimeout(() => {
+    // Prepare form payload
+    const formData = new FormData(form);
+    const payload = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      message: formData.get("message")
+    };
+
+    // Send actual POST request to the API endpoint
+    fetch("/api/send", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    })
+    .then(async (response) => {
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to send message");
+      }
+
       // Transition to success state
       submitText.textContent = "MESSAGE SENT!";
-
-      // Animate to success color (greenish accent)
       submitBtn.style.borderColor = "#00e676";
       submitCircle.style.backgroundColor = "#00e676";
 
@@ -663,14 +682,12 @@ function initContactForm() {
 
       // Wait 3 seconds, then restore original button state
       setTimeout(() => {
-        // Fade out/reset button
         anime({
           targets: submitCircle,
           scale: 0,
           duration: 600,
           easing: "easeOutQuad",
           complete: () => {
-            // Restore background color of circle to original accent color
             submitCircle.style.backgroundColor = "var(--color-accent)";
           }
         });
@@ -683,8 +700,36 @@ function initContactForm() {
         inputs.forEach(input => input.disabled = false);
         submitBtn.disabled = false;
       }, 3000);
+    })
+    .catch((err) => {
+      console.error("Email sending error:", err);
 
-    }, 2000);
+      // Transition to error state
+      submitText.textContent = "ERROR! TRY AGAIN";
+      submitBtn.style.borderColor = "#ff4444";
+      submitCircle.style.backgroundColor = "#ff4444";
+
+      // Wait 3 seconds, then restore original button state to allow retrying
+      setTimeout(() => {
+        anime({
+          targets: submitCircle,
+          scale: 0,
+          duration: 600,
+          easing: "easeOutQuad",
+          complete: () => {
+            submitCircle.style.backgroundColor = "var(--color-accent)";
+          }
+        });
+
+        submitText.textContent = "SEND INQUIRY";
+        submitBtn.style.color = "";
+        submitBtn.style.borderColor = "";
+
+        // Re-enable inputs
+        inputs.forEach(input => input.disabled = false);
+        submitBtn.disabled = false;
+      }, 3000);
+    });
   });
 }
 
@@ -1341,5 +1386,6 @@ function initBlogReader() {
     });
   }
 }
+
 
 
