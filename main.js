@@ -82,13 +82,27 @@ function initPreloader() {
   const preloader = document.getElementById("preloader");
   const counter = document.getElementById("preloader-counter");
   const wordEl = document.getElementById("preloader-word");
-  if (!preloader || !counter) return;
+  if (!preloader || !counter || !wordEl) return;
 
-  const greetings = ["HELLO", "KONNICHIWA", "BONJOUR", "DESIGN", "DEVELOP", "YOGESH"];
+  // Inject liquid text structure dynamically
+  wordEl.innerHTML = `
+    <span class="liquid-text-bg">PORTFOLIO</span>
+    <span class="liquid-text-fg">PORTFOLIO</span>
+  `;
+  const liquidFg = wordEl.querySelector(".liquid-text-fg");
+
+  // Dynamically insert thin progress line
+  const progressLine = document.createElement("div");
+  progressLine.className = "preloader-progress-line";
+  const content = preloader.querySelector(".preloader-content");
+  const counterWrapper = preloader.querySelector(".preloader-counter-wrapper");
+  if (content && counterWrapper) {
+    content.insertBefore(progressLine, counterWrapper);
+  }
 
   let count = 0;
   const duration = 2200; // 2.2 seconds loader
-  const interval = 20; // tick rate
+  const interval = 16; 
   const step = 100 / (duration / interval);
 
   const timer = setInterval(() => {
@@ -99,37 +113,41 @@ function initPreloader() {
       finishLoading();
     }
 
-    // Format counter to 3 digits (e.g. 008, 042, 100)
+    // Format counter (000 to 100)
     const displayCount = Math.floor(count).toString().padStart(3, "0");
     counter.textContent = displayCount;
 
-    // Word transition index calculation
-    if (wordEl) {
-      const wordIndex = Math.min(Math.floor((count / 100) * greetings.length), greetings.length - 1);
-      const currentWord = greetings[wordIndex];
-      if (wordEl.textContent !== currentWord) {
-        anime({
-          targets: wordEl,
-          translateY: [15, 0],
-          opacity: [0, 1],
-          duration: 350,
-          easing: "easeOutCubic"
-        });
-        wordEl.textContent = currentWord;
-      }
+    // Update liquid text color fill (clip-path inset bottom-to-top)
+    if (liquidFg) {
+      const clipPercent = 100 - count;
+      liquidFg.style.clipPath = `inset(${clipPercent}% 0px 0px 0px)`;
+    }
+
+    // Update progress bar width
+    if (progressLine) {
+      progressLine.style.setProperty("--progress-width", count + "%");
     }
   }, interval);
 
   function finishLoading() {
-    // Fade out preloader content elements
+    // 1. Fade out the counter and line details
     anime({
-      targets: ".preloader-content",
+      targets: [".preloader-progress-line", "#preloader-counter"],
       opacity: 0,
-      translateY: -30,
+      translateY: 10,
       duration: 600,
-      easing: "easeOutQuad",
+      easing: "easeOutCubic"
+    });
+
+    // 2. Expand and fade out the liquid text word
+    anime({
+      targets: "#preloader-word",
+      scale: 1.08,
+      opacity: 0,
+      duration: 800,
+      easing: "cubicBezier(0.16, 1, 0.3, 1)",
       complete: () => {
-        // Slide open panel upward
+        // 3. Slide the seamless off-white preloader panel upwards
         anime({
           targets: ".preloader-panel",
           translateY: "-100%",
@@ -137,7 +155,7 @@ function initPreloader() {
           easing: "cubicBezier(0.85, 0, 0.15, 1)",
           complete: () => {
             preloader.style.display = "none";
-            // Start main page cinematic entrance
+            // Start main page entrance
             startEntranceAnimation();
           }
         });
