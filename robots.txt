@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yogesh-tundiya.vercel.app/sitemap.xml
