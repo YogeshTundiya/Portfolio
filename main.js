@@ -1141,7 +1141,7 @@ function initModernTechStack() {
       duration: 0.8,
       stagger: 0.05,
       ease: "power3.out",
-      clearProps: "all",
+      clearProps: "transform,opacity",
       scrollTrigger: {
         trigger: techSection,
         start: "top 80%",

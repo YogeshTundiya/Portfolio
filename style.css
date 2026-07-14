@@ -2078,27 +2078,7 @@
     z-index: 1;
   }
   
-  /* Background subtle glow pseudo-element on hover */
-  .tech-bento-card::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: radial-gradient(circle, var(--brand-color) 0%, transparent 70%);
-    opacity: 0;
-    transform: translate(-50%, -50%);
-    transition: width 0.6s ease, height 0.6s ease, opacity 0.6s ease;
-    z-index: 0;
-    pointer-events: none;
-  }
 
-  .tech-bento-card:hover::before {
-    width: 250px;
-    height: 250px;
-    opacity: 0.08;
-  }
 
   /* Give some cards a wider span */
   .tech-bento-card.span-2 {
@@ -2127,7 +2107,7 @@
   .tech-bento-icon svg {
     width: 100%;
     height: 100%;
-    transition: filter 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: filter 0.5s cubic-bezier(0.16, 1, 0.3, 1), fill 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     filter: grayscale(100%) opacity(0.6);
   }
 
@@ -2153,10 +2133,14 @@
   }
 
   .tech-bento-card:hover .tech-bento-icon {
+    color: var(--brand-color);
     transform: scale(1.1);
   }
 
-  .tech-bento-card:hover .tech-bento-icon svg {
+  .tech-bento-card:hover .tech-bento-icon svg,
+  .tech-bento-card:hover .tech-bento-icon svg path {
+    fill: var(--brand-color) !important;
+    color: var(--brand-color) !important;
     filter: grayscale(0%) opacity(1) drop-shadow(0 4px 12px rgba(0,0,0,0.1));
   }
 
