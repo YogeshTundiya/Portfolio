@@ -284,12 +284,8 @@ export default async function handler(req, res) {
     }
 
     // 2. Send Email to Client (Auto-reply)
-    // NOTE: In Resend's free tier sandbox mode, you can ONLY send emails to your verified account email (yogeshtundiya945@gmail.com).
-    // Attempting to send to the client's email (escapedEmail) will cause Resend to return a 403 error.
-    // Therefore, we send a [Copy] of the auto-reply to YOUR email so you get a receipt and can see what it looks like.
-    // 
-    // ONCE YOU VERIFY A CUSTOM DOMAIN:
-    // Change 'to: "yogeshtundiya945@gmail.com"' below to 'to: escapedEmail' to send it to the client!
+    // NOTE: This will only work once you verify a custom domain in Resend.
+    // If you are using onboarding@resend.dev, Resend will block this and return a 403 error.
     const clientEmailRes = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
@@ -298,15 +294,15 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         from: 'Yogesh Tundiya <onboarding@resend.dev>',
-        to: 'yogeshtundiya945@gmail.com', // Bypasses sandbox error. Change to escapedEmail once domain is verified!
-        subject: `[Receipt Copy] Thank you for reaching out, ${escapedName}!`,
+        to: escapedEmail, // Sends directly to the client's email
+        subject: `Thank you for reaching out, ${escapedName}!`,
         html: clientHtml,
       }),
     });
 
     const clientData = await clientEmailRes.json();
     if (!clientEmailRes.ok) {
-      console.error('Failed to send auto-reply receipt copy:', clientData.message || clientEmailRes.statusText);
+      console.error('Failed to send auto-reply to client:', clientData.message || clientEmailRes.statusText);
     }
 
     return res.status(200).json({ success: true, message: 'Emails processed successfully' });
